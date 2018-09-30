@@ -1,11 +1,12 @@
 # seat
+<<<<<<< HEAD
 
 图书馆座位预约系统
 
 # 登录
 
 
-图书馆座位预约系统使用的这个自习助手 app 使用了自签发的证书和新型加密套件
+图书馆座位预约系统的API使用了自签发的证书和新型加密套件
 
 使用fiddler抓包
 
@@ -71,6 +72,39 @@ Connection: Keep-Alive
   "code": "0"
 }
 ```
+
+# 设置
+
+`/rest/v2/settings`
+
+{
+  "data": {
+    "expressCompleteMins": 0,
+    "buildingExpressCheckoutStatuses": [
+      [
+        1,
+        false
+      ]
+    ],
+    "buildingOpenClose": [
+      [
+        1,
+        "07:00",
+        "22:00"
+      ]
+    ],
+    "wifiAwayDisabled": false,
+    "wifiStopDisabled": false,
+    "checkInAheadMins": 30,
+    "lateAllowedMins": 15
+  },
+  "message": null,
+  "status": true
+}
+
+checkInAheadMins 允许提前多少分钟签到
+lateAllowedMins 迟到多少分钟后算违约
+
 # 违约查询
 
 `/rest/v2/violations`
@@ -119,9 +153,18 @@ Connection: Keep-Alive
 ```
 layout里好多都只有一个`{"type":"empty"}`,不知道是什么情况
 
-layout里name是真正的座位号， 
+layout里name是真正的座位号， `{"type":"seat"}`是座位，type还可能是desk什么的
 
 status FREE是没人可以预约，IN_USE是已经被占了
 
+window 是不是靠窗
+
+power 桌上有没有电源插座
+
+
+
 # 按日期选座
 
+=======
+图书馆座位预约系统
+>>>>>>> a814e1be14217a1cd2f279c0ff29b505087c519c
