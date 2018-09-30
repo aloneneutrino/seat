@@ -123,6 +123,8 @@ lateAllowedMins 迟到多少分钟后算违约
 
 # 预约查询
 
+还没到时间，没有履约的预约 
+
 `/rest/v2/user/reservations`
 
 ```
@@ -150,7 +152,131 @@ lateAllowedMins 迟到多少分钟后算违约
 }
 ```
 
-# 座位情况
+# 预约历史记录
+
+`/rest/v2/history/$page/$count`
+
+```
+{
+  "status": "success",
+  "data": {
+    "reservations": [
+      {
+        "id": 14757,
+        "date": "2018-9-30",
+        "begin": "10:00",
+        "end": "12:00",
+        "awayBegin": null,
+        "awayEnd": null,
+        "loc": "图书馆4层4F北区450号",
+        "stat": "MISS"
+      },
+      {
+        "id": 3665,
+        "date": "2018-9-16",
+        "begin": "17:00",
+        "end": "18:00",
+        "awayBegin": null,
+        "awayEnd": null,
+        "loc": "图书馆3层3F北区089号",
+        "stat": "COMPLETE"
+      }
+    ]
+  },
+  "message": "",
+  "code": "0"
+}
+``` 
+
+MISS 就是失约， COMPLETE 就是履约
+
+# 图书馆信息
+
+`/rest/v2/free/filters`
+
+```
+{
+  "status": "success",
+  "data": {
+    "buildings": [
+      [
+        1,
+        "图书馆",
+        5
+      ]
+    ],
+    "rooms": [
+      [
+        11,
+        "3F北区",
+        1,
+        3
+      ],
+      [
+        12,
+        "3F南区",
+        1,
+        3
+      ],
+      [
+        14,
+        "5F西区",
+        1,
+        5
+      ],
+      [
+        16,
+        "4F西北区",
+        1,
+        4
+      ],
+      [
+        17,
+        "4F西南区",
+        1,
+        4
+      ],
+      [
+        21,
+        "2F北厅",
+        1,
+        2
+      ],
+      [
+        22,
+        "4F南1区",
+        1,
+        4
+      ],
+      [
+        23,
+        "4F南2区",
+        1,
+        4
+      ],
+      [
+        24,
+        "4F北区",
+        1,
+        4
+      ]
+    ],
+    "hours": 10,
+    "dates": [
+      "2018-09-30",
+      "2018-10-01"
+    ]
+  },
+  "message": "",
+  "code": "0"
+}
+```
+
+"3F北区"之前的大概就是区域的编号
+
+data->dates 是可以预约的日期
+
+# 按区域和日期查座位情况
 
 `/rest/v2/room/layoutByDate/21/2018-09-29`
 

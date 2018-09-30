@@ -45,5 +45,5 @@ function test_url($url, $username, $password)
     //$response = json_decode(curl_exec($ch));
     $response = curl_exec($ch);
     curl_close($ch);
-    var_dump($response);
+    echo $response;
 }
