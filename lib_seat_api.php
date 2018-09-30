@@ -19,5 +19,31 @@ function login($username, $password)
     $response = curl_exec($ch);
     curl_close($ch);
     $response = json_decode($response);
-    return (string)$response->data->token;
+    return $response->data->token;
+}
+
+function test_url($url, $username, $password)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://".SERVER_URL.":8443$url");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYSTATUS, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
+    $token = login($username, $password);
+
+    $header = array(
+        "Content-Type: application/x-www-form-urlencoded; charset=UTF-8",
+        "token: $token",
+        "Host: ".SERVER_URL.":8443",
+        "Connection: Keep-Alive"
+    );
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+
+    //$response = json_decode(curl_exec($ch));
+    $response = curl_exec($ch);
+    curl_close($ch);
+    var_dump($response);
 }

@@ -1,5 +1,4 @@
 # seat
-<<<<<<< HEAD
 
 图书馆座位预约系统
 
@@ -77,6 +76,7 @@ Connection: Keep-Alive
 
 `/rest/v2/settings`
 
+```
 {
   "data": {
     "expressCompleteMins": 0,
@@ -101,8 +101,10 @@ Connection: Keep-Alive
   "message": null,
   "status": true
 }
+```
 
 checkInAheadMins 允许提前多少分钟签到
+
 lateAllowedMins 迟到多少分钟后算违约
 
 # 违约查询
@@ -117,6 +119,35 @@ lateAllowedMins 迟到多少分钟后算违约
   "status": true
 }
 
+```
+
+# 预约查询
+
+`/rest/v2/user/reservations`
+
+```
+{
+  "status": "success",
+  "data": [
+    {
+      "id": 14757,
+      "receipt": "0211-757-7",
+      "onDate": "2018-09-30",
+      "seatId": 13128,
+      "status": "RESERVE",
+      "location": "图书馆4层4F北区，座位号450",
+      "begin": "10:00",
+      "end": "12:00",
+      "actualBegin": null,
+      "awayBegin": null,
+      "awayEnd": null,
+      "userEnded": false,
+      "message": "请在 09月30日09点30分 至 10点15分 之间前往场馆签到"
+    }
+  ],
+  "message": "",
+  "code": "0"
+}
 ```
 
 # 座位情况
@@ -161,10 +192,4 @@ window 是不是靠窗
 
 power 桌上有没有电源插座
 
-
-
 # 按日期选座
-
-=======
-图书馆座位预约系统
->>>>>>> a814e1be14217a1cd2f279c0ff29b505087c519c
