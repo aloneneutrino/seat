@@ -276,9 +276,122 @@ MISS 就是失约， COMPLETE 就是履约
 
 data->dates 是可以预约的日期
 
-# 按区域和日期查座位情况
+# 查每个区域有多少座位
 
-`/rest/v2/room/layoutByDate/21/2018-09-29`
+`/rest/v2/room/stat2/1`
+
+```
+{
+  "status": "success",
+  "data": [
+    {
+      "roomId": 21,
+      "room": "2F北厅",
+      "floor": 2,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 56,
+      "free": 56
+    },
+    {
+      "roomId": 11,
+      "room": "3F北区",
+      "floor": 3,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 84,
+      "free": 84
+    },
+    {
+      "roomId": 12,
+      "room": "3F南区",
+      "floor": 3,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 84,
+      "free": 84
+    },
+    {
+      "roomId": 24,
+      "room": "4F北区",
+      "floor": 4,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 120,
+      "free": 120
+    },
+    {
+      "roomId": 22,
+      "room": "4F南1区",
+      "floor": 4,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 134,
+      "free": 134
+    },
+    {
+      "roomId": 23,
+      "room": "4F南2区",
+      "floor": 4,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 42,
+      "free": 42
+    },
+    {
+      "roomId": 16,
+      "room": "4F西北区",
+      "floor": 4,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 40,
+      "free": 40
+    },
+    {
+      "roomId": 17,
+      "room": "4F西南区",
+      "floor": 4,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 222,
+      "free": 222
+    },
+    {
+      "roomId": 14,
+      "room": "5F西区",
+      "floor": 5,
+      "maxHour": -1,
+      "reserved": 0,
+      "inUse": 0,
+      "away": 0,
+      "totalSeats": 16,
+      "free": 16
+    }
+  ],
+  "message": "",
+  "code": "0"
+}
+```
+
+# 按区域和日期查每个座位的情况
+
+`/rest/v2/room/layoutByDate/$room/$date`
 
 21大概是座位的区域，后面是日期
 
@@ -310,7 +423,7 @@ data->dates 是可以预约的日期
 ```
 layout里好多都只有一个`{"type":"empty"}`,不知道是什么情况
 
-layout里name是真正的座位号， `{"type":"seat"}`是座位，type还可能是desk什么的
+layout里name是图书馆里贴在桌子上的座位号， `{"type":"seat"}`是座位，type还可能是desk,word什么的
 
 status FREE是没人可以预约，IN_USE是已经被占了
 
@@ -318,4 +431,143 @@ window 是不是靠窗
 
 power 桌上有没有电源插座
 
-# 按日期选座
+# 座位开始时间
+
+`/rest/v2/startTimesForSeat/$id/$date`
+
+$id 一般是四到五位，比如 8910 
+
+```
+{
+  "status": "success",
+  "data": {
+    "startTimes": [
+      {
+        "id": "420",
+        "value": "07:00"
+      },
+      {
+        "id": "480",
+        "value": "08:00"
+      },
+      {
+        "id": "540",
+        "value": "09:00"
+      },
+      {
+        "id": "600",
+        "value": "10:00"
+      },
+      {
+        "id": "660",
+        "value": "11:00"
+      },
+      {
+        "id": "720",
+        "value": "12:00"
+      },
+      {
+        "id": "780",
+        "value": "13:00"
+      },
+      {
+        "id": "840",
+        "value": "14:00"
+      },
+      {
+        "id": "900",
+        "value": "15:00"
+      },
+      {
+        "id": "960",
+        "value": "16:00"
+      },
+      {
+        "id": "1020",
+        "value": "17:00"
+      },
+      {
+        "id": "1080",
+        "value": "18:00"
+      },
+      {
+        "id": "1140",
+        "value": "19:00"
+      },
+      {
+        "id": "1200",
+        "value": "20:00"
+      },
+      {
+        "id": "1260",
+        "value": "21:00"
+      }
+    ]
+  },
+  "message": "",
+  "code": "0"
+}
+```
+
+注意这里的id是一天中的多少分钟
+
+# 根据开始时间得到的座位结束时间
+
+`/rest/v2/endTimesForSeat/$id/$date/$start`
+
+$start 是开始时间
+
+最多可以连续约8小时
+
+```
+{
+  "status": "success",
+  "data": {
+    "endTimes": [
+      {
+        "id": "660",
+        "value": "11:00"
+      },
+      {
+        "id": "720",
+        "value": "12:00"
+      },
+      {
+        "id": "780",
+        "value": "13:00"
+      },
+      {
+        "id": "840",
+        "value": "14:00"
+      },
+      {
+        "id": "900",
+        "value": "15:00"
+      },
+      {
+        "id": "960",
+        "value": "16:00"
+      },
+      {
+        "id": "1020",
+        "value": "17:00"
+      },
+      {
+        "id": "1080",
+        "value": "18:00"
+      },
+      {
+        "id": "1140",
+        "value": "19:00"
+      },
+      {
+        "id": "1200",
+        "value": "20:00"
+      }
+    ]
+  },
+  "message": "",
+  "code": "0"
+}
+```
+
