@@ -2,8 +2,15 @@
 
 图书馆座位预约系统
 
-## 登录
+## 晚上十二点左右有一段时间是系统维护
 
+这时 api 会返回
+
+```
+{"status":"fail","code":"10","message":"System Maintenance","data":null}
+```
+
+## 登录
 
 图书馆座位预约系统的API使用了自签发的证书和新型加密套件
 
@@ -126,6 +133,10 @@ lateAllowedMins 迟到多少分钟后算违约
 还没到时间，没有履约的预约 
 
 `/rest/v2/user/reservations`
+
+```
+{"status":"success","data":null,"message":"","code":"0"}
+```
 
 ```
 {
@@ -575,14 +586,9 @@ $start 是开始时间
 
 `/rest/v2/freeBook`
 
-POST
-
-|Name           |Value     |
-|:--------------|:---------|
-|startTime      |600       |
-|endTime        |720       |
-|seat           |13128     |
-|date           |2018-9-30 |
+```
+POST "t=1&startTime=600&endTime=720&seat=13128&date=2018-09-30&t2=2"
+```
 
 可以看出来这是预约13128号座位，从9月30号上午10:00到12:00
 
@@ -605,4 +611,8 @@ POST
 }
 ```
 
+## 取消预约
 
+`/rest/v2/cancel/$id`
+
+要取消上面的预约的话这里$id应该是14757

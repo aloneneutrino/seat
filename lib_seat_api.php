@@ -50,5 +50,6 @@ function test_path($path, $username, $password, $post = null)
 
 function book($username, $password, $startTime, $endTime, $seat, $date)
 {
-    $post = "";
+    $post = "\"t=1&startTime=$startTime&endTime=$endTime&seat=$seat&date=$date&t2=2\"";
+    test_path("/rest/v2/freeBook", $username, $password, $post);
 }
