@@ -2,7 +2,7 @@
 
 图书馆座位预约系统
 
-# 登录
+## 登录
 
 
 图书馆座位预约系统的API使用了自签发的证书和新型加密套件
@@ -37,7 +37,7 @@
 
 token每次都会不同
 
-# 用户信息
+## 用户信息
 
 接下来的请求都要在header里带上token
 
@@ -72,7 +72,7 @@ Connection: Keep-Alive
 }
 ```
 
-# 设置
+## 设置
 
 `/rest/v2/settings`
 
@@ -107,7 +107,7 @@ checkInAheadMins 允许提前多少分钟签到
 
 lateAllowedMins 迟到多少分钟后算违约
 
-# 违约查询
+## 违约查询
 
 `/rest/v2/violations`
 
@@ -121,7 +121,7 @@ lateAllowedMins 迟到多少分钟后算违约
 
 ```
 
-# 预约查询
+## 预约查询
 
 还没到时间，没有履约的预约 
 
@@ -152,7 +152,7 @@ lateAllowedMins 迟到多少分钟后算违约
 }
 ```
 
-# 预约历史记录
+## 预约历史记录
 
 `/rest/v2/history/$page/$count`
 
@@ -190,7 +190,7 @@ lateAllowedMins 迟到多少分钟后算违约
 
 MISS 就是失约， COMPLETE 就是履约
 
-# 图书馆信息
+## 图书馆信息
 
 `/rest/v2/free/filters`
 
@@ -276,7 +276,7 @@ MISS 就是失约， COMPLETE 就是履约
 
 data->dates 是可以预约的日期
 
-# 查每个区域有多少座位
+## 查每个区域有多少座位
 
 `/rest/v2/room/stat2/1`
 
@@ -389,7 +389,7 @@ data->dates 是可以预约的日期
 }
 ```
 
-# 按区域和日期查每个座位的情况
+## 按区域和日期查每个座位的情况
 
 `/rest/v2/room/layoutByDate/$room/$date`
 
@@ -431,7 +431,7 @@ window 是不是靠窗
 
 power 桌上有没有电源插座
 
-# 座位开始时间
+## 座位开始时间
 
 `/rest/v2/startTimesForSeat/$id/$date`
 
@@ -511,7 +511,7 @@ $id 一般是四到五位，比如 8910
 
 注意这里的id是一天中的多少分钟
 
-# 根据开始时间得到的座位结束时间
+## 根据开始时间得到的座位结束时间
 
 `/rest/v2/endTimesForSeat/$id/$date/$start`
 
@@ -570,4 +570,39 @@ $start 是开始时间
   "code": "0"
 }
 ```
+
+## 预约一个座位
+
+`/rest/v2/freeBook`
+
+POST
+
+|Name           |Value     |
+|:--------------|:---------|
+|startTime      |600       |
+|endTime        |720       |
+|seat           |13128     |
+|date           |2018-9-30 |
+
+可以看出来这是预约13128号座位，从9月30号上午10:00到12:00
+
+正常的话，返回
+
+```
+{
+  "status": "success",
+  "data": {
+    "id": 14757,
+    "receipt": "0211-757-7",
+    "onDate": "2018 年 09 月 30 日",
+    "begin": "10 : 00",
+    "end": "12 : 00",
+    "location": "图书馆4层4F北区，座位号450",
+    "checkedIn": false
+  },
+  "message": "",
+  "code": "0"
+}
+```
+
 

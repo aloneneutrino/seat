@@ -22,10 +22,10 @@ function login($username, $password)
     return $response->data->token;
 }
 
-function test_url($url, $username, $password)
+function test_path($path, $username, $password, $post = null)
 {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://".SERVER_URL.":8443$url");
+    curl_setopt($ch, CURLOPT_URL, "https://".SERVER_URL.":8443$path");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYSTATUS, false);
@@ -41,9 +41,14 @@ function test_url($url, $username, $password)
     );
 
     curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
-    //$response = json_decode(curl_exec($ch));
     $response = curl_exec($ch);
     curl_close($ch);
     echo $response;
+}
+
+function book($username, $password, $startTime, $endTime, $seat, $date)
+{
+    $post = "";
 }
