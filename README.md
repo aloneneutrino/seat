@@ -118,7 +118,8 @@ lateAllowedMins 迟到多少分钟后算违约
 
 `/rest/v2/violations`
 
-没有违约的话返回
+这个好像是坏的，网页上查得到违约，APP上就查不到
+
 ```
 {
   "data": [],
@@ -130,7 +131,7 @@ lateAllowedMins 迟到多少分钟后算违约
 
 ## 预约查询
 
-还没到时间，没有履约的预约 
+还没到时间，没有履约的预约
 
 `/rest/v2/user/reservations`
 
@@ -199,7 +200,7 @@ lateAllowedMins 迟到多少分钟后算违约
 }
 ``` 
 
-MISS 就是失约， COMPLETE 就是履约
+MISS 就是失约， COMPLETE 就是履约, CANCEL 就是取消
 
 ## 图书馆信息
 
@@ -289,7 +290,7 @@ data->dates 是可以预约的日期
 
 ## 查每个区域有多少座位
 
-`/rest/v2/room/stat2/1`
+`/rest/v2/room/stats2/1`
 
 ```
 {
