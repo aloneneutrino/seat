@@ -16,7 +16,7 @@
 
 使用fiddler抓包
 
-首先 get `https://172.26.50.21:8443/rest/auth?username=学号&password=密码`
+首先 GET `https://172.26.50.21:8443/rest/auth?username=学号&password=密码`
 
 如果密码不对，返回
 
@@ -437,7 +437,7 @@ layout里好多都只有一个`{"type":"empty"}`,不知道是什么情况
 
 layout里name是图书馆里贴在桌子上的座位号， `{"type":"seat"}`是座位，type还可能是desk,word什么的
 
-status FREE是没人可以预约，IN_USE是已经被占了
+status FREE是没人可以预约，IN_USE是已经被占了 AWAY 是暂时离开
 
 window 是不是靠窗
 
@@ -617,3 +617,7 @@ POST "t=1&startTime=600&endTime=720&seat=13128&date=2018-09-30&t2=2"
 `/rest/v2/cancel/$id`
 
 要取消上面的预约的话这里$id应该是14757
+
+```
+{"status":"success","data":null,"message":"","code":"0"}
+```
